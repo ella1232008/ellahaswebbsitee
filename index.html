@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabella.com — Y2K Emo Punk-Rock Portfolio & Gallery</title> 
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Permanent+Marker&family=Poppins:ital,wght@0,300;0,400;0,600;0,800;1,400&family=VT323&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        punkPink: '#ff007f',
+                        punkLime: '#39ff14',
+                        punkYellow: '#ffff00',
+                        punkDark: '#0a0a0a',
+                        punkPaper: '#f4f1ea',
+                        punkCharcoal: '#1a1a1a'
+                    },
+                    fontFamily: {
+                        gothic: ['"Cinzel Decorative"', 'serif'],
+                        marker: ['"Permanent Marker"', 'cursive'],
+                        poppins: ['"Poppins"', 'sans-serif'],
+                        vt: ['"VT323"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: #f4f1ea;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Checkerboard Background Pattern */
+        .checker-bg {
+            background-image: 
+                linear-gradient(45deg, #121212 25%, transparent 25%), 
+                linear-gradient(-45deg, #121212 25%, transparent 25%), 
+                linear-gradient(45deg, transparent 75%, #121212 75%), 
+                linear-gradient(-45deg, transparent 75%, #121212 75%);
+            background-size: 40px 40px;
+            background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+            background-color: #050505;
+        }
+
+        .paper-texture {
+            background-color: #f4f1ea;
+            color: #111;
+            background-image: radial-gradient(#d4cfc4 1px, transparent 1px), linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 20px 20px, 100% 100%;
+        }
+
+        .charcoal-texture {
+            background-color: #151515;
+            background-image: radial-gradient(#252525 1.5px, transparent 1.5px);
+            background-size: 16px 16px;
+        }
+
+        /* Neon Glows & Boxes */
+        .neon-glow-pink {
+            text-shadow: 0 0 5px #ff007f, 0 0 10px #ff007f, 0 0 20px #ff007f, 0 0 40px #ff007f;
+        }
+        .neon-glow-lime {
+            text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14;
+        }
+        .neon-box-pink {
+            box-shadow: 5px 5px 0px #ff007f, 10px 10px 0px rgba(255, 0, 127, 0.25);
+        }
+        .neon-box-lime {
+            box-shadow: 5px 5px 0px #39ff14, 10px 10px 0px rgba(57, 255, 20, 0.25);
+        }
+        .neon-box-yellow {
+            box-shadow: 5px 5px 0px #ffff00, 10px 10px 0px rgba(255, 255, 0, 0.25);
+        }
+
+        /* Vinyl Spin Animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin 10s linear infinite;
+        }
+
+        /* Wobble Sticker Animation */
+        @keyframes wobble {
+            0% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+            100% { transform: rotate(-2deg); }
+        }
+        .wobble-sticker {
+            animation: wobble 4s ease-in-out infinite;
+        }
+
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+            z-index: 1;
+        }
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            15% { opacity: 0.85; }
+            85% { opacity: 0.85; }
+            100% {
+                transform: translateY(-10vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+            border-left: 2px solid #ff007f;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ff007f;
+            border: 2px solid #0a0a0a;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #39ff14;
+        }
+
+        /* Custom Cursor Dot */
+        .custom-cursor {
+            pointer-events: none;
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #ff007f;
+            background-color: rgba(57, 255, 20, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            z-index: 9999;
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .custom-cursor { display: block; }
+        }
+
+        /* ===== LIGHTBOX ===== */
+        #lightbox-modal {
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        #lightbox-modal.show {
+            opacity: 1;
+        }
+        #lightbox-card {
+            transform: scale(0.92) rotate(-1deg);
+            transition: transform 0.3s ease;
+        }
+        #lightbox-modal.show #lightbox-card {
+            transform: scale(1) rotate(0deg);
+        }
+        #lightbox-img {
+            transition: opacity 0.2s ease;
+        }
+        #lightbox-img.fading {
+            opacity: 0;
+        }
+        .lb-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ff007f;
+            color: #000;
+            border: 2px solid #000;
+            border-radius: 9999px;
+            font-size: 1.25rem;
+            box-shadow: 3px 3px 0 #39ff14;
+            transition: background 0.2s, transform 0.2s;
+            z-index: 5;
+        }
+        .lb-nav:hover {
+            background: #39ff14;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lb-prev { left: 8px; }
+        .lb-next { right: 8px; }
+        @media (min-width: 768px) {
+            .lb-prev { left: -24px; }
+            .lb-next { right: -24px; }
+        }
+    </style>
+</head>
+<body class="checker-bg text-punkPaper selection:bg-punkPink selection:text-black">
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor" id="cursor"></div>
+
+    <!-- Floating Particles Container -->
+    <div id="particles-container" class="fixed inset-0 overflow-hidden pointer-events-none z-0"></div>
+
+    <!-- HEADER AND NAVIGATION -->
+    <header id="header" class="sticky top-0 z-50 bg-punkDark/95 backdrop-blur-md border-b-2 border-punkPink transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#home" class="flex items-center space-x-3 group">
+                <img src="images/Logo.png" alt="Arabella Logo" class="h-10 w-auto object-contain" onerror="this.style.display='none'">
+                <span class="text-2xl sm:text-3xl font-gothic font-black tracking-wider text-punkPaper group-hover:text-punkPink transition-colors">
+                    ARABELLA.COM <span class="text-punkPink text-2xl sm:text-3xl inline-block animate-bounce ml-1"><i class="fa-solid fa-music"></i></span>
+                </span>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-8 font-marker tracking-widest text-lg">
+                <a href="#home" class="hover:text-punkPink transition-colors border-b-2 border-transparent hover:border-punkPink pb-1">HOME</a>
+                <a href="#about" class="hover:text-punkLime transition-colors border-b-2 border-transparent hover:border-punkLime pb-1">ABOUT ME</a>
+                <a href="#gallery" class="hover:text-punkPink transition-colors border-b-2 border-transparent hover:border-punkPink pb-1">GALLERY</a>
+                <a href="#player" class="hover:text-punkYellow transition-colors border-b-2 border-transparent hover:border-punkYellow pb-1">JAMMING</a>
+                <a href="#skills" class="hover:text-punkYellow transition-colors border-b-2 border-transparent hover:border-punkYellow pb-1">MY SKILLS</a>
+                <a href="#contact" class="hover:text-punkPink transition-colors border-b-2 border-transparent hover:border-punkPink pb-1">CONTACT</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden text-punkPink text-3xl focus:outline-none p-2" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-punkDark border-b-4 border-punkPink px-6 py-6 space-y-4 font-marker tracking-widest text-xl text-center">
+            <a href="#home" class="block mobile-link hover:text-punkPink py-2">HOME</a>
+            <a href="#about" class="block mobile-link hover:text-punkLime py-2">ABOUT ME</a>
+            <a href="#gallery" class="block mobile-link hover:text-punkPink py-2">GALLERY</a>
+            <a href="#player" class="block mobile-link hover:text-punkYellow py-2">JAMMING</a>
+            <a href="#skills" class="block mobile-link hover:text-punkYellow py-2">MY SKILLS</a>
+            <a href="#contact" class="block mobile-link hover:text-punkPink py-2">CONTACT</a>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section id="home" class="relative min-h-[90vh] flex items-center justify-center px-4 sm:px-8 py-16 z-10">
+        <div class="max-w-6xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-punkDark/85 p-6 sm:p-10 border-4 border-punkPink neon-box-pink relative rounded-lg">
+            <div class="absolute -top-4 -left-4 text-punkYellow text-3xl transform -rotate-12">★</div>
+            <div class="absolute -bottom-4 -right-4 text-punkLime text-3xl transform rotate-12">✦</div>
+            <div class="absolute top-2 right-12 bg-punkYellow text-black font-marker px-3 py-1 text-xs transform rotate-6 shadow">Y2K PUNK EDITION</div>
+
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left z-10">
+                <div class="inline-block bg-punkLime text-black font-marker px-4 py-1 text-sm transform -rotate-2 neon-box-lime">
+                    “Sweet Soul. Loud Dreams. Unstoppable Energy.”
+                </div>
+
+                <h1 class="font-gothic font-black text-4xl sm:text-6xl lg:text-7xl text-punkPink neon-glow-pink tracking-tight uppercase leading-none">
+                    ARABELLA VILLAR SALVANI
+                </h1>
+
+                <p class="font-marker text-xl sm:text-2xl text-punkYellow tracking-wider">
+                    GET TO KNOW ME!!!
+                </p>
+
+                <p class="font-poppins text-base sm:text-lg text-punkPaper/90 leading-relaxed bg-black/60 p-4 border-l-4 border-punkLime rounded">
+                    College graduate at Colegio de la Salle, currently thriving as a dynamic graphic designer combining alternative rock energy with digital artistry.
+                </p>
+
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
+                    <a href="#about" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-punkPink text-black font-marker text-lg tracking-wider rounded border-2 border-black neon-box-pink hover:bg-punkLime hover:scale-105 transition-all duration-300">
+                        DISCOVER MY WORLD <i class="fa-solid fa-arrow-down ml-3"></i>
+                    </a>
+                    <a href="https://arabella.com" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-punkYellow text-black font-marker text-lg tracking-wider rounded border-2 border-black neon-box-yellow hover:bg-punkLime hover:scale-105 transition-all duration-300">
+                        GO TO WEBSITE <i class="fa-solid fa-external-link ml-3"></i>
+                    </a>
+                </div>
+            </div> 
+
+            <div class="lg:col-span-5 flex justify-center relative">
+                <div class="relative w-72 sm:w-80 h-96 paper-texture p-4 transform rotate-2 wobble-sticker shadow-2xl border-4 border-black">
+                    <div class="w-full h-3/4 bg-punkDark border-2 border-dashed border-punkPink overflow-hidden relative flex items-center justify-center group">
+                        <img src="images/23.jfif" alt="Arabella Villar Salvani" class="w-full h-full object-cover filter contrast-125 grayscale group-hover:grayscale-0 transition-all duration-500" onerror="this.src='https://placehold.co/400x500/111111/39ff14?text=ARABELLA'">
+                        <div class="absolute inset-0 bg-punkPink/20 mix-blend-overlay"></div>
+                        <div class="absolute bottom-2 right-2 bg-punkYellow text-black font-marker text-xs px-2 py-1 transform rotate-6">
+                            PUNK ROCK ★
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <span class="font-marker text-black text-lg">“Loud Dreams & Art”</span>
+                        <div class="flex justify-center space-x-2 text-punkPink text-sm mt-1">
+                            <span>♪</span><span>♫</span><span>★</span><span>✦</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--  SCRAPBOOK GALLERY SECTION -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10" id="gallery">
+        <div class="text-center mb-12">
+            <h2 class="font-gothic text-3xl sm:text-5xl font-black text-punkPink neon-glow-pink inline-block uppercase tracking-wider border-b-4 border-punkYellow pb-2">
+                 PUNK GALLERY
+            </h2>
+            <p class="font-marker text-punkLime text-xl mt-4">Selected Graphic Artworks & Y2K Concepts <span class="block text-sm text-punkPaper/70 mt-1">(tap any picture to view it bigger)</span></p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-pink transform -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Digital Art 01" data-tag="Digital Art" tabindex="0" role="button" aria-label="Open Digital Art 01">
+                <div class="h-64 bg-black border-2 border-dashed border-punkPink flex items-center justify-center overflow-hidden">
+                    <img src="images/image1.jfif" alt="Digital Art 01" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ★</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-lime transform rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Punk Graphics 02" data-tag="Punk Graphics" tabindex="0" role="button" aria-label="Open Punk Graphics 02">
+                <div class="h-64 bg-black border-2 border-dashed border-punkLime flex items-center justify-center overflow-hidden">
+                    <img src="images/image2.jfif" alt=" 02" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ♫</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-yellow transform -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Y2K Design 03" data-tag="Y2K Designs" tabindex="0" role="button" aria-label="Open Y2K Design 03">
+                <div class="h-64 bg-black border-2 border-dashed border-punkYellow flex items-center justify-center overflow-hidden">
+                    <img src="images/image3.jfif" alt=" 03" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ♪</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-pink transform rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Digital Art 04" data-tag="Digital Art" tabindex="0" role="button" aria-label="Open Digital Art 04">
+                <div class="h-64 bg-black border-2 border-dashed border-punkPink flex items-center justify-center overflow-hidden">
+                    <img src="images/image4.jpg" alt="04" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ⚡</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-lime transform -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Punk Graphics 05" data-tag="Punk Graphics" tabindex="0" role="button" aria-label="Open Punk Graphics 05">
+                <div class="h-64 bg-black border-2 border-dashed border-punkLime flex items-center justify-center overflow-hidden">
+                    <img src="images/image5.jpg" alt="Punk Graphics 05" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ✦</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-yellow transform rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="2000s Web Aesthetic" data-tag="Y2K Designs" tabindex="0" role="button" aria-label="Open 2000s Web Aesthetic">
+                <div class="h-64 bg-black border-2 border-dashed border-punkYellow flex items-center justify-center overflow-hidden">
+                    <img src="images/image6.jpg" alt="2000s Web Aesthetic" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ★</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-pink transform -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Punk Cassette Art" data-tag="Digital Art" tabindex="0" role="button" aria-label="Open Punk Cassette Art">
+                <div class="h-64 bg-black border-2 border-dashed border-punkPink flex items-center justify-center overflow-hidden">
+                    <img src="images/image7.jpg" alt="Punk Cassette Art" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ♫</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-lime transform rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Vinyl Album Art" data-tag="Punk Graphics" tabindex="0" role="button" aria-label="Open Vinyl Album Art">
+                <div class="h-64 bg-black border-2 border-dashed border-punkLime flex items-center justify-center overflow-hidden">
+                    <img src="images/image8.jpg" alt="Vinyl Album Art" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ♪</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-yellow transform -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Retro Hologram" data-tag="Y2K Designs" tabindex="0" role="button" aria-label="Open Retro Hologram">
+                <div class="h-64 bg-black border-2 border-dashed border-punkYellow flex items-center justify-center overflow-hidden">
+                    <img src="images/image9.jpg" alt="Retro Hologram" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ⚡</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-pink transform rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Dark Gothic Typo" data-tag="Digital Art" tabindex="0" role="button" aria-label="Open Dark Gothic Typo">
+                <div class="h-64 bg-black border-2 border-dashed border-punkPink flex items-center justify-center overflow-hidden">
+                    <img src="images/image10.jfif" alt="Dark Gothic Typo" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg">✦</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-lime transform -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Spike Star Emblem" data-tag="Punk Graphics" tabindex="0" role="button" aria-label="Open Spike Star Emblem">
+                <div class="h-64 bg-black border-2 border-dashed border-punkLime flex items-center justify-center overflow-hidden">
+                    <img src="images/image11.jpg" alt="Spike Star Emblem" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ★</span>
+                </div>
+            </div>
+
+            <div class="gallery-item paper-texture p-4 rounded border-4 border-black neon-box-yellow transform rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300 cursor-pointer" data-title="Neon Cyber Grid" data-tag="Y2K Designs" tabindex="0" role="button" aria-label="Open Neon Cyber Grid">
+                <div class="h-64 bg-black border-2 border-dashed border-punkYellow flex items-center justify-center overflow-hidden">
+                    <img src="images/image12.jpg" alt="Neon Cyber Grid" class="w-full h-full object-cover">
+                </div>
+                <div class="mt-3 text-center">
+                    <span class="font-marker text-black text-lg"> ♫</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Y2K PUNK VIDEO PLAYER SECTION -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto relative z-10" id="player">
+        <div class="paper-texture p-6 sm:p-10 rounded-lg border-4 border-black neon-box-yellow transform rotate-1 relative">
+            <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-yellow-200/90 rotate-1 shadow-sm"></div>
+            
+            <div class="text-center mb-8">
+                <div class="inline-block bg-punkYellow text-black font-marker text-xs px-3 py-1 uppercase mb-2">NOW JAMMING</div>
+                <h3 class="font-gothic font-black text-2xl sm:text-4xl text-black uppercase">JANINE BERDIN — HAYUP KA</h3>
+                <p class="font-marker text-punkPink text-sm sm:text-base mt-1">(Jamming ng mga Tanga) ⚡</p>
+            </div>
+
+            <!-- Video Player Responsive Container -->
+            <div class="relative w-full aspect-video bg-black rounded border-4 border-black overflow-hidden shadow-2xl">
+                <iframe class="absolute inset-0 w-full h-full border-0" src="https://www.youtube.com/embed/DI5gKnwEd8g?si=wnY7FjjSvbOH17X7" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+            <div class="mt-6 flex flex-wrap items-center justify-between gap-4 font-marker text-xs text-black border-t-2 border-dashed border-gray-400 pt-4">
+                <span>★ UMG PHILIPPINES RELEASE</span>
+                <span class="text-punkPink">♪ HIGH ENERGY ROCK VIBE</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- LIGHTBOX MODAL -->
+    <div id="lightbox-modal" class="fixed inset-0 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <div id="lightbox-card" class="relative max-w-3xl w-full paper-texture p-4 sm:p-6 border-4 border-punkPink neon-box-pink rounded text-center">
+            <!-- Close -->
+            <button id="lb-close" class="absolute -top-4 -right-4 bg-punkPink text-black font-marker w-10 h-10 rounded-full border-2 border-black text-xl hover:bg-punkLime z-10" aria-label="Close">✕</button>
+
+            <!-- Prev / Next -->
+            <button id="lb-prev" class="lb-nav lb-prev" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+            <button id="lb-next" class="lb-nav lb-next" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+
+            <div class="bg-black border-2 border-black mb-4 flex items-center justify-center overflow-hidden">
+                <img id="lightbox-img" src="" alt="" class="w-full max-h-[65vh] object-contain">
+            </div>
+            <h3 id="lightbox-title" class="font-gothic font-black text-xl sm:text-2xl text-black"></h3>
+            <p id="lightbox-tag" class="font-marker text-punkPink mt-1"></p>
+            <p id="lightbox-counter" class="font-marker text-xs text-black/60 mt-2"></p>
+        </div>
+    </div>
+
+    <!-- THREE-COLUMN SCRAPBOOK CONTENT SECTION -->
+    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10" id="about">
+        <div class="text-center mb-16">
+            <h2 class="font-gothic text-3xl sm:text-5xl font-black text-punkLime neon-glow-lime inline-block uppercase tracking-wider border-b-4 border-punkPink pb-2">
+                SCRAPBOOK ARCHIVES
+            </h2>
+            <p class="font-marker text-punkYellow text-xl mt-4">Explore my background, superpowers, and contact channels!</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+            <!-- COLUMN 1 — ABOUT ME -->
+            <div class="paper-texture p-6 sm:p-8 rounded-lg border-4 border-black neon-box-pink transform -rotate-1 hover:rotate-0 transition-transform duration-300 flex flex-col justify-between relative">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-yellow-200/80 rotate-1 shadow-sm"></div>
+                <div>
+                    <div class="inline-block bg-punkPink text-black font-marker text-xs px-2 py-1 uppercase mb-3">PANEL 01</div>
+                    <h3 class="font-gothic font-black text-2xl sm:text-3xl text-black mb-4 uppercase">THE GIRL BEHIND THE VIBE</h3>
+                    <div class="space-y-3 font-poppins text-sm sm:text-base text-gray-900 border-t-2 border-dashed border-gray-400 pt-4">
+                        <p><strong>Name:</strong> Arabella Villar Salvani</p>
+                        <p><strong>Education:</strong> College Graduate</p>
+                        <p><strong>School:</strong> Negros Occidental High School</p>
+                        <p><strong>Higher Ed:</strong> Colegio de la Salle</p>
+                        <p><strong>Specialization:</strong> Computer Systems Servicing (CSS)</p>
+                        <p><strong>Personality:</strong> Sweet, hardworking, creative, and determined.</p>
+                    </div>
+                </div>
+                <div class="mt-8 pt-4 border-t-2 border-black flex justify-between items-center">
+                    <span class="font-marker text-xs text-punkPink bg-black px-2 py-1">EST. 2026</span>
+                    <i class="fa-solid fa-heart text-punkPink text-xl animate-pulse"></i>
+                </div>
+            </div>
+
+            <!-- COLUMN 2 — MY SKILLS -->
+            <div class="charcoal-texture p-6 sm:p-8 rounded-lg border-4 border-punkLime neon-box-lime transform rotate-1 hover:rotate-0 transition-transform duration-300 flex flex-col justify-between relative text-punkPaper" id="skills">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-pink-200/80 -rotate-1 shadow-sm"></div>
+                <div>
+                    <div class="inline-block bg-punkLime text-black font-marker text-xs px-2 py-1 uppercase mb-3">PANEL 02</div>
+                    <h3 class="font-gothic font-black text-2xl sm:text-3xl text-punkLime mb-4 uppercase">CREATIVITY MEETS TECH</h3>
+                    <p class="text-xs text-gray-400 mb-4 italic">*Note: Unverified skills are maintained as learning interests.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-black text-punkLime font-marker text-xs px-3 py-1.5 border border-punkLime">Computer hardware servicing</span>
+                        <span class="bg-black text-punkYellow font-marker text-xs px-3 py-1.5 border border-punkYellow">Computer troubleshooting</span>
+                        <span class="bg-black text-punkPink font-marker text-xs px-3 py-1.5 border border-punkPink">Basic networking</span>
+                        <span class="bg-black text-punkLime font-marker text-xs px-3 py-1.5 border border-punkLime">Technical problem-solving</span>
+                        <span class="bg-black text-punkYellow font-marker text-xs px-3 py-1.5 border border-punkYellow">Creative design</span>
+                        <span class="bg-black text-punkPink font-marker text-xs px-3 py-1.5 border border-punkPink">Graphic designing</span>
+                        <span class="bg-black text-punkLime font-marker text-xs px-3 py-1.5 border border-punkLime">Animator</span>
+                        <span class="bg-black text-punkYellow font-marker text-xs px-3 py-1.5 border border-punkYellow">Music & artistic inspiration</span>
+                    </div>
+                </div>
+                <div class="mt-8 pt-4 border-t-2 border-punkLime/40 flex justify-between items-center text-punkYellow">
+                    <span class="font-marker text-xs">SKILLS & VIBES</span>
+                    <i class="fa-solid fa-bolt text-punkYellow text-xl"></i>
+                </div>
+            </div>
+
+            <!-- COLUMN 3 — CONTACT ME -->
+            <div class="paper-texture p-6 sm:p-8 rounded-lg border-4 border-black neon-box-yellow transform -rotate-1 hover:rotate-0 transition-transform duration-300 flex flex-col justify-between relative" id="contact">
+                <div class="absolute -top-3 left-1/2 transform -translate-x-1/2 w-28 h-6 bg-green-200/80 rotate-2 shadow-sm"></div>
+                <div>
+                    <div class="inline-block bg-punkYellow text-black font-marker text-xs px-2 py-1 uppercase mb-3">PANEL 03</div>
+                    <h3 class="font-gothic font-black text-2xl sm:text-3xl text-black mb-4 uppercase">CONTACTS</h3>
+
+                    <div class="space-y-4 font-poppins text-sm sm:text-base text-gray-900 border-t-2 border-dashed border-gray-400 pt-4">
+                        <p class="flex items-center space-x-3">
+                            <span class="bg-punkLime text-black p-2 rounded-full"><i class="fa-solid fa-envelope"></i></span>
+                            <a href="mailto:ellavillar100508@gmail.com" class="hover:text-punkPink font-semibold break-all underline decoration-punkPink">ellavillar100508@gmail.com</a>
+                        </p>
+                        <p class="flex items-center space-x-3">
+                            <span class="bg-punkPink text-black p-2 rounded-full"><i class="fa-solid fa-phone"></i></span>
+                            <a href="tel:099944151833" class="hover:text-punkPink font-semibold underline decoration-punkPink">099944151833</a>
+                        </p>
+                        <p class="flex items-start space-x-3">
+                            <span class="bg-punkYellow text-black p-2 rounded-full mt-1"><i class="fa-solid fa-location-dot"></i></span>
+                            <div>
+                                <span class="block font-semibold">Lumina Homes Subd. Phase 1, Blk 1 Lot 9 Lychee St, Vista Alegre, Bacolod</span>
+                                
+                                <!-- GOOGLE MAPS LINK BUTTON -->
+                                <a href="https://www.google.com/maps/place/Lumina+Homes+Subd.+Phase+1,+Blk+1+Lot+9+Lychee+st,+Vista+Alegre,+Bacolod,+6100+Negros+Occidental/@10.6447595,122.9962596,18z" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer" 
+                                   class="mt-3 inline-flex items-center px-4 py-2 bg-black text-punkYellow font-marker text-xs rounded border-2 border-black neon-box-yellow hover:bg-punkPink hover:text-black hover:scale-105 transition-all duration-300 cursor-pointer">
+                                    <i class="fa-solid fa-map-location-dot mr-2 text-sm"></i> OPEN LOCATION IN GOOGLE MAPS ➔
+                                </a>
+                            </div>
+                        </p>
+
+                        <!-- Google Maps Embedded Preview Frame -->
+                        <div class="mt-4 w-full h-44 rounded border-2 border-black overflow-hidden shadow-inner">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1235.0876483215939!2d122.99625961352841!3d10.644759514329902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33aed3404c3bbe47%3A0x3eba59c9bdaaa7b4!2sLumina%20Homes%20Subd.%20Phase%201%2C%20Blk%201%20Lot%209%20Lychee%20st%2C%20Vista%20Alegre%2C%20Bacolod%2C%206100%20Negros%20Occidental!5e0!3m2!1sen!2sph!4v1792391826165!5m2!1sen!2sph" 
+                                class="w-full h-full border-0" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="strict-origin-when-cross-origin">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 pt-4 border-t-2 border-black flex items-center justify-between">
+                    <div class="w-12 h-12 bg-black rounded-full border-2 border-punkPink animate-spin-slow flex items-center justify-center relative">
+                        <div class="w-4 h-4 bg-punkYellow rounded-full"></div>
+                    </div>
+                    <span class="font-marker text-xs text-punkPink">SPIN THE RECORD</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- BACK TO TOP BUTTON -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 bg-punkPink text-black font-marker p-4 rounded-full shadow-lg border-2 border-black hidden hover:bg-punkLime transition-all z-40" aria-label="Back to Top">
+        <i class="fa-solid fa-arrow-up text-lg"></i>
+    </button>
+
+    <!-- FOOTER -->
+    <footer class="bg-punkDark border-t-4 border-punkPink py-10 px-4 text-center relative z-10">
+        <div class="max-w-7xl mx-auto space-y-4">
+            <p class="font-marker text-punkYellow text-lg tracking-wider">ARABELLA.COM // Y2K EMO PUNK-ROCK PORTFOLIO</p>
+            <p class="font-poppins text-sm text-gray-400">© 2026 Arabella Villar Salvani. All rights reserved. Crafted with rebellious energy & passion.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT FOR INTERACTIVITY -->
+    <script>
+        // Custom Cursor movement
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // ===== LIGHTBOX GALLERY =====
+        const modal = document.getElementById('lightbox-modal');
+        const lbImg = document.getElementById('lightbox-img');
+        const lbTitle = document.getElementById('lightbox-title');
+        const lbTag = document.getElementById('lightbox-tag');
+        const lbCounter = document.getElementById('lightbox-counter');
+        const galleryItems = Array.from(document.querySelectorAll('.gallery-item'));
+        let currentIndex = 0;
+        let lastFocused = null;
+
+        function showImage(index) {
+            currentIndex = (index + galleryItems.length) % galleryItems.length;
+            const item = galleryItems[currentIndex];
+            const src = item.querySelector('img').getAttribute('src');
+            const title = item.dataset.title || 'Punk Artwork';
+            const tag = item.dataset.tag || 'Y2K Concept';
+
+            lbImg.classList.add('fading');
+            setTimeout(() => {
+                lbImg.src = src;
+                lbImg.alt = title;
+                lbTitle.textContent = title;
+                lbTag.textContent = tag;
+                lbCounter.textContent = (currentIndex + 1) + ' / ' + galleryItems.length;
+                lbImg.classList.remove('fading');
+            }, 120);
+        }
+
+        function openLightbox(index) {
+            lastFocused = document.activeElement;
+            const item = galleryItems[index];
+            currentIndex = index;
+            lbImg.src = item.querySelector('img').getAttribute('src');
+            lbImg.alt = item.dataset.title || '';
+            lbTitle.textContent = item.dataset.title || 'Punk Artwork';
+            lbTag.textContent = item.dataset.tag || 'Y2K Concept';
+            lbCounter.textContent = (index + 1) + ' / ' + galleryItems.length;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            requestAnimationFrame(() => modal.classList.add('show'));
+            document.getElementById('lb-close').focus();
+        }
+
+        function closeLightbox() {
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                lbImg.src = '';
+            }, 250);
+            if (lastFocused) lastFocused.focus();
+        }
+
+        const isOpen = () => modal.classList.contains('show');
+
+        galleryItems.forEach((item, i) => {
+            item.addEventListener('click', () => openLightbox(i));
+            item.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openLightbox(i);
+                }
+            });
+        });
+
+        document.getElementById('lb-close').addEventListener('click', closeLightbox);
+        document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); showImage(currentIndex - 1); });
+        document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); showImage(currentIndex + 1); });
+
+        // Click on dark backdrop closes
+        modal.addEventListener('click', e => {
+            if (e.target === modal) closeLightbox();
+        });
+
+        // Keyboard controls
+        document.addEventListener('keydown', e => {
+            if (!isOpen()) return;
+            if (e.key === 'Escape') closeLightbox();
+            else if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+            else if (e.key === 'ArrowRight') showImage(currentIndex + 1);
+        });
+
+        // Swipe support for phones
+        let touchStartX = 0;
+        modal.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+        modal.addEventListener('touchend', e => {
+            const diff = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(diff) > 50) showImage(currentIndex + (diff < 0 ? 1 : -1));
+        }, { passive: true });
+
+        // Back to top button visibility
+        const backToTopBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.remove('hidden');
+            } else {
+                backToTopBtn.classList.add('hidden');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Floating particles generator
+        const particlesContainer = document.getElementById('particles-container');
+        const particleSymbols = ['★', '✦', '♪', '♫', '⚡', '✿'];
+        const colors = ['#ff007f', '#39ff14', '#ffff00', '#f4f1ea'];
+
+        for (let i = 0; i < 20; i++) {
+            const span = document.createElement('span');
+            span.className = 'particle font-marker';
+            span.textContent = particleSymbols[Math.floor(Math.random() * particleSymbols.length)];
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.top = Math.random() * 100 + 'vh';
+            span.style.fontSize = (Math.random() * 16 + 10) + 'px';
+            span.style.color = colors[Math.floor(Math.random() * colors.length)];
+            span.style.animationDuration = (Math.random() * 10 + 8) + 's';
+            span.style.animationDelay = (Math.random() * 5) + 's';
+            particlesContainer.appendChild(span);
+        }
+    </script>
+</body>
+</html>
